@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="firebase.js"></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="full-page">
+    <div class="container">
+        <h2>Registrar</h2>
+        <input type="text" id="name" placeholder="Digite seu nome" oninput="validarTexto(event)">
+        <input type="email" id="email" placeholder="Digite seu email">
+        <input type="password" id="password" placeholder="Digite sua senha">
+        <input type="text" id="phone" placeholder="Digite seu telefone" oninput="validarNumeros(event)">
+        <span id="phone-error" class="error-message"></span>
+        <input type="text" id="cep" placeholder="CEP" maxlength="8" onblur="buscarCEP()" oninput="validarNumeros(event)">
+        <span id="cep-error" class="error-message"></span>
+        <input type="text" id="rua" placeholder="Rua" disabled>
+        <input type="text" id="bairro" placeholder="Bairro" disabled>
+        <input type="text" id="cidade" placeholder="Cidade" disabled>
+        <input type="text" id="estado" placeholder="Estado" disabled>
+        <input type="text" id="numero" placeholder="Número" oninput="validarNumeros(event)">
+        
+        <!-- campos exclusivos de PF -->
+        <input type="text" id="cpf" placeholder="Digite seu CPF" maxlength="11" style="display: none;" oninput="validarNumeros(event)">
+        <span id="cpf-error" class="error-message"></span>
+
+        <select id="tipo-cadastro" onchange="mostrarCampos()">
+            <option value="pf">Pessoa Física</option>
+            <option value="pj">Pessoa Jurídica</option>
+            <option value="cliente">Cliente</option>
+        </select>
+        <!-- campos exclusivos de PJ -->
+        <input type="text" id="cnpj" placeholder="Digite seu CNPJ" maxlength="14" style="display: none;" oninput="validarNumeros(event)">  
+        <span id="cnpj-error" class="error-message"></span>
+        <input type="text" id="nome-fantasia" placeholder="Nome Fantasia" style="display: none;">
+        <input type="text" id="empresa" placeholder="Nome da empresa" style="display: none;">
+        <span id="empresa-error" class="error-message"></span>
+        <input type="text" id="descricao-empresa" placeholder="Descrição da empresa" style="display: none;">
+        <button onclick="register()">Criar Conta</button>
+        <button onclick="window.location.href='login.html'">Login</button>
+        <button onclick="window.location.href='index.html'">Voltar</button>
+        <p id="status"></p>
+    </div>
+    </div>
+</body>
+</html>

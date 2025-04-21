@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Cliente</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Barra Lateral -->
+        <div class="sidebar">
+            <button id="toggle-sidebar">≡</button>
+            <button onclick="window.location.href='dashboard.html'">Home</button>
+            <button onclick="window.location.href='kanban.html'">Kanban</button>
+            <button onclick="window.location.href='ListadeClientes.html'">Lista de Clientes</button>
+            <button onclick="window.location.href='cadastroCliente.html'">Cadastro de Cliente</button>
+            <button onclick="window.location.href='cadastroAcordosServicos.html'">Cadastro de Acordos</button>
+            <button onclick="window.location.href='ganhoseDespesas.html'">Ganhos e despesas</button>
+            <button onclick="window.location.href='criar-contrato.html'">Criar Contrato</button>
+            <button onclick="logout()">Sair</button>
+        </div>
+
+        <!-- Conteúdo Principal -->
+        <div class="main-content">
+            <h2>Cadastro de Cliente</h2>
+
+            <!-- Formulário para Cadastro -->
+            <form id="form-cadastro">
+                <input type="text" id="nome" placeholder="Nome do Cliente" required>
+                <input type="text" id="contato" placeholder="Contato (E-mail ou Telefone)" required>
+                <input type="text" id="cpf-cnpj" placeholder="CPF ou CNPJ" required>
+                <textarea id="descricao" placeholder="Descrição da Empresa (opcional)"></textarea>
+                <button type="submit">Cadastrar Cliente</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    
+    <!-- Script de Cadastro de Cliente -->
+    <script src="cadastroCliente.js"></script>
+</body>
+</html>

@@ -1,0 +1,881 @@
+/* ========================================= */
+/*           VARIÁVEIS GLOBAIS               */
+/* ========================================= */
+:root {
+    /* Fontes e Cores */
+    --font-main: 'Poppins', sans-serif;
+    --font-alt: 'Arial', sans-serif;
+    --color-white: #FFFFFF;
+    --color-black: #1A1A1A;
+    --color-primary: #4A90E2;        /* Azul moderno */
+    --color-secondary: #50E3C2;      /* Verde água suave */
+    --color-accent: #F5A623;         /* Laranja vibrante */
+    --color-bg: #F7F9FC;             /* Fundo claro neutro */
+    --color-text: #4A4A4A;           /* Texto cinza escuro */
+    --color-sidebar: #34495E;        /* Tom de azul escuro para sidebar */
+    --color-modal-overlay: rgba(0, 0, 0, 0.5);
+    --color-button-kanban: #4A90E2;   /* Botões do kanban com fundo primário */
+    --color-button-kanban-hover: #357ABD;
+    --color-input-border: #CCCCCC;
+    /* Backgrounds e Efeitos */
+    --bg-body: linear-gradient(to right, #d8dce262, #cfdae9);
+    --bg-container: #FFFFFF;
+    --bg-input: #ECEFF1;
+    --border-radius: 8px;
+    --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* ========================================= */
+/*          RESET & CONFIGURAÇÃO GLOBAL      */
+/* ========================================= */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: var(--font-main);
+    background: var(--bg-body);
+    color: var(--color-text);
+}
+
+/* ========================================= */
+/*   CLASSE PARA CENTRALIZAR TELAS COMPLETAS   */
+/* ========================================= */
+.full-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* ========================================= */
+/*         ESTILOS GERAIS & CONTAINERS       */
+/* ========================================= */
+.container {
+    background: var(--bg-container);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-medium);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+h2 {
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    color: var(--color-primary);
+}
+
+/* Inputs, Select e Textarea com borda visível */
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid var(--color-input-border);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    background: var(--bg-input);
+    color: var(--color-text);
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--color-primary);
+}
+
+input::placeholder {
+    color: rgba(74, 74, 74, 0.7);
+}
+
+/* Botões Gerais */
+button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: var(--border-radius);
+    background: var(--color-primary);
+    color: var(--color-white);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: var(--color-accent);
+}
+
+/* Erros e Avisos */
+span {
+    color: red;
+}
+
+/* Animação de Fade In */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================= */
+/*         DASHBOARD COM BARRA LATERAL       */
+/* ========================================= */
+.dashboard {
+    display: flex;
+    min-height: 100vh;
+    background: var(--bg-body);
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    padding: 30px 20px;
+    background: var(--color-sidebar);
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    transition: width 0.3s ease, opacity 0.3s ease;
+}
+
+.sidebar button {
+    background: transparent;
+    border: 2px solid var(--color-white);
+    color: var(--color-white);
+    padding: 10px;
+    border-radius: var(--border-radius);
+    font-size: 0.95rem;
+    transition: background 0.3s, border-color 0.3s;
+}
+
+.sidebar button:hover {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+/* Toggle Sidebar Button */
+#toggle-sidebar {
+    position: relative;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 45px;
+    height: 45px;
+    border: 2px solid var(--color-white);
+    background: transparent;
+    color: var(--color-white);
+    font-size: 1.3rem;
+    border-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+/* Sidebar minimizada */
+.sidebar.minimized {
+    width: 60px;
+    opacity: 0.85;
+    padding: 20px 0;
+}
+
+.sidebar.minimized button {
+    display: none;
+}
+
+/* Conteúdo Principal do Dashboard */
+.content, .main-content {
+    margin-left: 250px;
+    padding: 20px;
+    width: 100%;
+    transition: margin-left 0.3s;
+}
+
+/* ========================================= */
+/*        FORMULÁRIOS & TABELAS NO DASHBOARD  */
+/* ========================================= */
+form {
+    background: var(--bg-container);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    margin-bottom: 20px;
+}
+
+form input, form select, form button {
+    padding: 12px;
+    border: 1px solid var(--color-input-border);
+    border-radius: var(--border-radius);
+}
+
+form button {
+    background: #28a745;
+    color: var(--color-white);
+}
+
+form button:hover {
+    background: #218838;
+}
+
+/* Tabelas */
+table {
+    width: 100%;
+    background: var(--bg-container);
+    padding: 15px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--color-input-border);
+    color: var(--color-text);
+}
+
+th {
+    background: var(--bg-container);
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background: var(--bg-container);
+}
+
+tr:hover {
+    background: #EBF0F7;
+}
+
+/* Saldo & Ações em Tabelas */
+h3 span {
+    font-weight: bold;
+    color: var(--color-primary);
+}
+
+#saldo {
+    font-weight: bold;
+    font-size: 18px;
+    color: var(--color-black);
+}
+
+.btn-editar,
+.btn-excluir {
+    padding: 5px 10px;
+    border-radius: var(--border-radius);
+    font-size: 0.9rem;
+    transition: background 0.3s;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-editar {
+    background: #007bff;
+    color: var(--color-white);
+}
+
+.btn-editar:hover {
+    background: #0056b3;
+}
+
+.btn-excluir {
+    background: #E74C3C;
+    color: var(--color-white);
+}
+
+.btn-excluir:hover {
+    background: #C0392B;
+}
+
+/* ========================================= */
+/*            CONTAINER DO KANBAN            */
+/* ========================================= */
+.kanban-container {
+    width: 90%;
+    max-width: 1300px;
+    margin: 30px auto;
+    background: var(--bg-container);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-medium);
+}
+
+/* Configuração para exibição horizontal do Kanban */
+.kanban-columns {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 15px;
+    padding-bottom: 10px;
+}
+
+.kanban-column {
+    min-width: 280px;
+    background: var(--bg-container);
+    padding: 15px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.kanban-column h3 {
+    font-size: 1.4rem;
+    color: var(--color-black);
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* Lista de cards */
+.kanban-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+    /* Estilo para quando a área estiver ativa como drop target */
+    transition: border 0.2s ease;
+}
+
+.kanban-list.drag-over {
+    border: 2px dashed var(--color-accent);
+}
+
+.kanban-list li {
+    background: #FFFFFF;
+    padding: 12px;
+    margin-bottom: 8px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    color: var(--color-text);
+    transition: transform 0.2s ease;
+}
+
+.kanban-list li:hover {
+    transform: scale(1.02);
+}
+
+/* Estilo para o card enquanto é arrastado */
+.kanban-list li.dragging {
+    opacity: 0.5;
+    border: 2px dashed var(--color-primary);
+}
+
+/* Botões específicos para ações no Kanban */
+.kanban-list button {
+    background: var(--color-button-kanban);
+    border: 1px solid var(--color-button-kanban);
+    color: var(--color-white);
+    padding: 6px 12px;
+    border-radius: var(--border-radius);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.3s, border-color 0.3s;
+    margin-right: 5px;
+}
+
+.kanban-list button:hover {
+    background: var(--color-button-kanban-hover);
+    border-color: var(--color-button-kanban-hover);
+}
+
+/* Botão para adicionar cards nas colunas */
+.kanban-column button {
+    background: var(--color-button-kanban);
+    color: var(--color-white);
+    padding: 10px;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 10px;
+}
+
+.kanban-column button:hover {
+    background: var(--color-button-kanban);
+}
+
+.column-header {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* centraliza título + botão */
+    gap: 8px; /* espaço entre o título e o botão */
+    margin-bottom: 10px;
+}
+.btn-editar-nome {
+    width: auto;
+    align-items: center;
+    justify-content: center;
+    padding: 1px 1px;           /* Menor padding */
+    font-size: 0.8rem;
+}
+
+.btn-editar-nome:hover {
+    background: var(#FFFFFF);  
+    color: white;                           
+}
+
+/* ========================================= */
+/*             ESTILOS DOS CARDS             */
+/* ========================================= */
+.card-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-name {
+    font-weight: 600;
+    color: var(--color-primary);
+    
+}
+
+.card-date {
+    font-style: italic;
+    color: #7F8C8D;
+}
+
+/* ========================================= */
+/*             CRIAR CONTRATO                */
+/* ========================================= */
+.criar-contrato {
+    width: 80%;
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 30px;
+    background: var(--bg-container);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-medium);
+    font-family: var(--font-alt);
+}
+
+.criar-contrato h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: var(--color-primary);
+}
+
+.criar-contrato form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.criar-contrato label {
+    font-size: 1rem;
+    color: #555;
+}
+
+.criar-contrato input[type="text"],
+.criar-contrato input[type="email"],
+.criar-contrato input[type="date"],
+.criar-contrato select,
+.criar-contrato textarea {
+    background: #FFFFFF;
+    color: var(--color-black);
+}
+
+.criar-contrato textarea {
+    height: 150px;
+    resize: vertical;
+}
+
+.criar-contrato .checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.criar-contrato .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.criar-contrato button {
+    background: var(--color-primary);
+}
+
+.criar-contrato button:hover {
+    background: var(--color-hover);
+}
+
+.criar-contrato button:disabled {
+    background: var(--color-disabled);
+    cursor: not-allowed;
+}
+
+.criar-contrato .message {
+    text-align: center;
+    margin-top: 15px;
+    padding: 12px;
+    font-size: 1rem;
+    color: var(--color-white);
+    background: #28a745;
+    border-radius: var(--border-radius);
+}
+
+.criar-contrato .message.error {
+    background: var(--color-error);
+}
+
+/* ========================================= */
+/*          CONFIRMAR CONTRATO               */
+/* ========================================= */
+.contract-container {
+    background: var(--bg-container);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-medium);
+    margin: 30px auto;
+    max-width: 900px;
+}
+
+.contract-container h1 {
+    font-size: 1.8rem;
+    color: var(--color-black);
+    margin-bottom: 20px;
+}
+
+.contract-container p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: #7F8C8D;
+}
+
+#contract-details {
+    background: #ECEFF1;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+}
+
+#contract-details p {
+    font-size: 0.95rem;
+    color: #455A64;
+    margin-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-size: 1rem;
+    color: #455A64;
+}
+
+.form-group input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+#confirm-btn {
+    background: var(--color-contract-btn);
+    color: var(--color-white);
+    padding: 15px 25px;
+    font-size: 1rem;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#confirm-btn:hover {
+    background: var(--color-contract-btn-hover);
+}
+
+#confirm-btn:disabled {
+    background: var(--color-disabled);
+    cursor: not-allowed;
+}
+
+/* ========================================= */
+/*              PORTFÓLIO                    */
+/* ========================================= */
+.dashboard h1 {
+    font-size: 2.5rem;
+    color: var(--color-black);
+    margin-bottom: 30px;
+}
+
+.portfolio-section {
+    background: var(--bg-container);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-medium);
+    max-width: 600px;
+    margin: 0 auto 40px;
+}
+
+.portfolio-section h2 {
+    font-size: 1.8rem;
+    color: var(--color-black);
+    margin-bottom: 15px;
+}
+
+.portfolio-section textarea {
+    border: 1px solid var(--color-input-border);
+    border-radius: var(--border-radius);
+}
+
+.portfolio-section button {
+    background: var(--color-primary);
+    padding: 12px 20px;
+}
+
+.portfolio-section button:hover {
+    background: var(--color-accent);
+}
+
+.other-portfolios {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.other-portfolios h2 {
+    font-size: 1.8rem;
+    color: var(--color-black);
+    margin-bottom: 20px;
+}
+
+#portfolios-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.portfolio-card {
+    background: var(--bg-container);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    width: calc(33% - 20px);
+    box-shadow: var(--shadow-light);
+    transition: transform 0.3s ease;
+}
+
+.portfolio-card:hover {
+    transform: translateY(-5px);
+}
+
+.portfolio-card h3 {
+    font-size: 1.2rem;
+    margin-top: 10px;
+    color: var(--color-black);
+}
+
+.portfolio-card p {
+    font-size: 0.95rem;
+    color: #7F8C8D;
+    margin-bottom: 15px;
+}
+
+.portfolio-item a {
+    text-decoration: none;
+    background: var(--color-primary);
+    color: var(--color-white);
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    display: inline-block;
+    transition: background 0.3s;
+}
+
+.portfolio-item a:hover {
+    background: var(--color-accent);
+}
+
+label[for="portfolio"] {
+    color: var(--color-primary);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* ========================================= */
+/*           ESTILOS DO MODAL                */
+/* ========================================= */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: var(--color-modal-overlay);
+}
+
+.modal-content {
+    background: var(--bg-container);
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    width: 90%;
+    max-width: 600px;
+    box-shadow: var(--shadow-medium);
+    animation: fadeIn 0.4s ease;
+    position: relative;
+}
+
+.close {
+    color: var(--color-modal-close);
+    font-size: 1.8rem;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: var(--color-modal-close-hover);
+}
+
+.modal-content p {
+    font-size: 1rem;
+    margin: 12px 0;
+    color: var(--color-text);
+}
+
+.modal-content h3 {
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    margin-bottom: 20px;
+}
+
+/* ========================================= */
+/*             RESPONSIVIDADE                */
+/* ========================================= */
+@media (max-width: 768px) {
+    .dashboard {
+        flex-direction: column;
+    }
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        padding: 15px;
+        box-shadow: none;
+    }
+    .content, .main-content {
+        margin-left: 0;
+        padding: 15px;
+    }
+    .kanban-columns {
+        flex-wrap: nowrap;
+    }
+    .kanban-column {
+        width: 90%;
+        margin-right: 10px;
+    }
+}
+/* ======= Ganhos e Despesas ======= */
+
+/* Diminuir padding-top dos TDs em Ganhos e Despesas */
+#lista-transacoes td {
+    padding-top: 0px;  /* ajuste este valor até ficar do seu gosto */
+    /* mantém o padding lateral e inferior */
+    padding-right: 15px;
+    padding-bottom: 3px;
+    padding-left: 15px;
+  }
+  /* ========================= */
+/*  Ajustes Ganhos & Despesas */
+/* ========================= */
+/* === Correção de espaçamento no Ganhos & Despesas === */
+#lista-transacoes button {
+    margin-top: 3px;
+    margin-top: 3px;  /* remove a margem extra acima dos botões */
+  }
+  
+  /* (Opcional) Se ainda quiser compactar ainda mais, reduza o line-height das células) */
+  #lista-transacoes td {
+    line-height: 1.1;
+  }
+
+  /*
+
+  /* ========================================= */
+/*   MELHORIAS VISUAIS PARA DRAG & DROP      */
+/* ========================================= */
+
+/* Destaque suave ao passar o card sobre a lista */
+.kanban-list.drag-over {
+    background: rgba(80, 227, 194, 0.1);    /* tom suave do secundário */
+    border: 2px dashed var(--color-secondary);
+    border-radius: var(--border-radius);
+    transition: background 0.3s ease, border 0.3s ease;
+  }
+  
+  /* Sombra e leve escala ao arrastar o próprio card */
+  .kanban-list li.dragging {
+    opacity: 0.7;
+    transform: scale(1.02);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  /* Highlight da coluna sendo arrastada */
+  .kanban-column.dragging-list {
+    opacity: 0.9;
+    transform: rotate(-1deg) scale(1.01);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  }
+  
+  /* Indicação de placeholder ao reordenar colunas */
+  .kanban-columns .placeholder {
+    width: 280px;
+    min-height: 100px;
+    margin: 0 8px;
+    background: rgba(245, 166, 35, 0.1);   /* tom suave do accent */
+    border: 2px dashed var(--color-accent);
+    border-radius: var(--border-radius);
+    transition: background 0.3s ease, border 0.3s ease;
+  }
+  
+  /* Adiciona animação para inserir o placeholder */
+  @keyframes placeholderFade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  .kanban-columns .placeholder {
+    animation: placeholderFade 0.3s ease;
+  }
+  #filtro-mes,
+#filtro-ano {
+  width: 130px; /* ajuste esse valor conforme necessário */
+  padding: 6px;
+  font-size: 14px;
+  margin-right: 10px;
+}

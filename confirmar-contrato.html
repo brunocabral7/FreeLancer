@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmar Contrato</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="sidebar">
+            <button id="toggle-sidebar">≡</button>
+            <button onclick="window.location.href='dashboard.html'">Home</button>
+            <button onclick="window.location.href='kanban.html'">Kanban</button>
+            <button onclick="window.location.href='ListadeClientes.html'">Lista de Clientes</button>
+            <button onclick="window.location.href='cadastroCliente.html'">Cadastro de Cliente</button>
+            <button onclick="window.location.href='cadastroAcordosServicos.html'">Cadastro de Acordos</button>
+            <button onclick="window.location.href='ganhoseDespesas.html'">Ganhos e despesas</button>
+            <button onclick="window.location.href='criar-contrato.html'">Criar Contrato</button>
+            <button onclick="logout()">Sair</button>
+        </div>
+
+        <div class="contract-container">
+            <h1>Confirmar Contrato</h1>
+            <p>Por favor, revise as informações do contrato abaixo e clique em "Confirmar" para aceitar:</p>
+            
+            <div id="contract-details"></div>
+            
+            <div class="form-group">
+                <label for="accept-contract">Confirmo que li e aceito os termos do contrato:</label>
+                <input type="checkbox" id="accept-contract" required>
+            </div>
+            
+            <button id="confirm-btn" disabled>Confirmar Contrato</button>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("QxU-QJL3Q0-8zoh7b"); // Substitua pelo seu Public Key
+        })();
+    </script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyDev8I567_Rj4uvvvw_zZCgD7e2A2ci2O8",
+            authDomain: "trampolivre.firebaseapp.com",
+            projectId: "trampolivre",
+            storageBucket: "trampolivre.firebasestorage.app",
+            messagingSenderId: "1089675684715",
+            appId: "1:1089675684715:web:372181ef61dc92e76e7a2e",
+            measurementId: "G-MLJMWDN3K2"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const auth = firebase.auth();
+
+        function getContractId() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('contract_id');
+        }
+
+        const contractId = getContractId();
+        if (!contractId) {
+            alert("Erro: Não foi possível localizar o ID do contrato.");
+            window.location.href = "dashboard.html";
+        }
+
+        async function loadContractDetails() {
+            if (!contractId) return;
+
+            try {
+                const contractDoc = await db.collection('contracts').doc(contractId).get();
+                if (contractDoc.exists) {
+                    const contractData = contractDoc.data();
+
+                    document.getElementById('contract-details').innerHTML = `
+                        <p><strong>Freelancer:</strong> ${contractData.freelancer_name}</p>
+                        <p><strong>Telefone do Freelancer:</strong> ${contractData.freelancer_phone}</p>
+                        <p><strong>CPF do Freelancer:</strong> ${contractData.freelancer_cpf}</p>
+                        <p><strong>E-mail do Freelancer:</strong> ${contractData.freelancer_email}</p>
+                        <p><strong>Cliente:</strong> ${contractData.client_name}</p>
+                        <p><strong>E-mail do Cliente:</strong> ${contractData.client_email}</p>
+                        <p><strong>Valor do Contrato:</strong> R$ ${contractData.contract_value}</p>
+                        <p><strong>Data de Início:</strong> ${contractData.contract_start}</p>
+                        <p><strong>Data de Término:</strong> ${contractData.contract_end}</p>
+                        <p><strong>Detalhes do Contrato:</strong><br>${contractData.contract_details}</p>
+                    `;
+
+                    document.getElementById('accept-contract').addEventListener('change', function () {
+                        document.getElementById('confirm-btn').disabled = !this.checked;
+                    });
+
+                    document.getElementById('confirm-btn').addEventListener('click', async function () {
+                        if (document.getElementById('accept-contract').checked) {
+                            await db.collection('contracts').doc(contractId).update({
+                                status: 'confirmed',
+                                confirmed_at: firebase.firestore.FieldValue.serverTimestamp()
+                            });
+
+                            generateContractPDF(contractData);
+                            sendEmail(contractData);
+                        } else {
+                            alert('Você precisa aceitar os termos do contrato.');
+                        }
+                    });
+                } else {
+                    alert('Erro: Contrato não encontrado.');
+                }
+            } catch (error) {
+                console.error('Erro ao carregar os detalhes do contrato:', error);
+                alert('Erro ao carregar os detalhes do contrato.');
+            }
+        }
+
+        function generateContractPDF(contractData) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            doc.text(`Contrato de Prestação de Serviços`, 10, 10);
+            doc.text(`Freelancer: ${contractData.freelancer_name}`, 10, 20);
+            doc.text(`Telefone: ${contractData.freelancer_phone}`, 10, 30);
+            doc.text(`CPF: ${contractData.freelancer_cpf}`, 10, 40);
+            doc.text(`E-mail: ${contractData.freelancer_email}`, 10, 50);
+            doc.text(`Cliente: ${contractData.client_name}`, 10, 60);
+            doc.text(`E-mail do Cliente: ${contractData.client_email}`, 10, 70);
+            doc.text(`Valor: R$ ${contractData.contract_value}`, 10, 80);
+            doc.text(`Início: ${contractData.contract_start}`, 10, 90);
+            doc.text(`Término: ${contractData.contract_end}`, 10, 100);
+            doc.text(`Detalhes:`, 10, 110);
+            doc.text(contractData.contract_details, 10, 120, { maxWidth: 180 });
+
+            doc.save(`Contrato_${contractData.client_name}.pdf`);
+        }
+
+        function sendEmail(contractData) {
+            // Verifique se o campo client_email está presente
+            const emailData = {
+                client_name: contractData.client_name,
+                freelancer_name: contractData.freelancer_name,
+                freelancer_phone: contractData.freelancer_phone,
+                freelancer_cpf: contractData.freelancer_cpf,
+                freelancer_email: contractData.freelancer_email,
+                client_email: contractData.client_email,
+                contract_value: contractData.contract_value,
+                contract_start: contractData.contract_start,
+                contract_end: contractData.contract_end,
+                contract_details: contractData.contract_details,
+                to_email: contractData.client_email || contractData.email || contractData.email_cliente // Ajuste aqui
+            };
+
+            // Exiba os dados antes de enviar o e-mail
+            console.log("Dados do contrato para e-mail:", emailData);
+
+            emailjs.send("service_6xqi74x", "template_iqo9r89", emailData)
+                .then((response) => {
+                    console.log('E-mail enviado com sucesso:', response);
+                    alert('Contrato confirmado e e-mail enviado com sucesso!');
+                    window.location.href = "dashboard.html";
+                })
+                .catch((error) => {
+                    console.error('Erro ao enviar e-mail:', error);
+                    alert('Erro ao enviar o contrato.');
+                });
+        }
+
+        loadContractDetails();
+    </script>
+</body>
+</html>
