@@ -584,9 +584,6 @@ h3 span {
     transition: background 0.3s;
 }
 
-#confirm-btn:hover {
-    background: var(--color-contract-btn-hover);
-}
 
 #confirm-btn:disabled {
     background: var(--color-disabled);
