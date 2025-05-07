@@ -574,8 +574,8 @@ h3 span {
 }
 
 #confirm-btn {
-    background: var(--color-contract-btn);
-    color: var(--color-button-kanban);
+    background: var(--color-button-kanban);
+    color: var(--color-white);
     padding: 15px 25px;
     font-size: 1rem;
     border: none;
