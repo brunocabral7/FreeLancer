@@ -214,3 +214,34 @@ btnDel.addEventListener("click", () => excluirTransacao(userId, t.id));
     XLSX.utils.book_append_sheet(wb, ws, "Filtradas");
     XLSX.writeFile(wb, "ganhos_e_despesas_filtradas.xlsx");
   }
+  function logout() {
+    firebase.auth().signOut()
+        .then(() => {
+            window.location.href = "login.html"; // redireciona para a página de login
+        })
+        .catch((error) => {
+            console.error("Erro ao sair:", error);
+            alert("Erro ao sair. Tente novamente.");
+        });
+}
+  firebase.auth().onAuthStateChanged(user => {
+    if (!user) {
+        alert("Você precisa estar logado para acessar esta página.");
+        window.location.href = "login.html";
+    }
+});
+
+// Configuração da sidebar
+function setupSidebar() {
+  const toggleSidebarButton = document.getElementById('toggle-sidebar');
+  const sidebar = document.querySelector('.sidebar');
+
+  toggleSidebarButton.addEventListener('click', () => {
+      sidebar.classList.toggle('minimized');
+  });
+}
+
+// Inicialização quando o conteúdo estiver pronto
+document.addEventListener("DOMContentLoaded", () => {
+  setupSidebar();
+});

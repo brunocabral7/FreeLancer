@@ -165,32 +165,6 @@ function register() {
 
     limparMensagensErro();
 
-    if (!email || !password || !name || !phone || !cep || !rua || !bairro || !cidade || !estado || !numero) {
-        isValid = false;
-        alert("Preencha todos os campos antes de continuar.");
-        return;
-    }
-    if (tipoCadastro === "cliente") {
-        if (!empresa.trim()) {
-            isValid = false;
-            exibirMensagemErro('empresa', 'O nome da empresa é obrigatório.');
-        }
-    } else if (tipoCadastro === "pf") {
-        if (!validarCPF(cpf)) {
-            isValid = false;
-            exibirMensagemErro('cpf', 'CPF inválido. Verifique o número.');
-        }
-    } else if (tipoCadastro === "pj") {
-        if (!validarCNPJ(cnpj)) {
-            isValid = false;
-            exibirMensagemErro('cnpj', 'CNPJ inválido. Verifique o número.');
-        }
-    }
-
-    if (!validarTelefone(phone)) {
-        isValid = false;
-        exibirMensagemErro('phone', 'Telefone inválido. Verifique o número.');
-    }
 
     if (!isValid) return;
 
@@ -229,7 +203,7 @@ function register() {
         .then(() => {
             console.log("Dados do usuário salvos no Firestore!");
             alert("Cadastro realizado com sucesso!");
-            window.location.href = "dashboard.html";
+            window.location.href = "portfolios.html";
         })
         .catch(error => {
             console.log("Erro ao registrar:", error.code, error.message);
@@ -294,7 +268,7 @@ function login() {
         .then((userCredential) => {
             
             console.log("Usuário logado com sucesso:", userCredential.user.uid);
-            window.location.href = "dashboard.html";
+            window.location.href = "portfolios.html";
         })
         .catch((error) => {
             // Trata o erro e exibe a mensagem

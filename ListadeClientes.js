@@ -112,6 +112,22 @@ function logout() {
         window.location.href = "login.html";
     }).catch(error => console.error("Erro ao sair:", error));
 }
+firebase.auth().onAuthStateChanged(user => {
+    if (!user) {
+        alert("Você precisa estar logado para acessar esta página.");
+        window.location.href = "login.html";
+    }
+});
+function logout() {
+    firebase.auth().signOut()
+        .then(() => {
+            window.location.href = "login.html"; // redireciona para a página de login
+        })
+        .catch((error) => {
+            console.error("Erro ao sair:", error);
+            alert("Erro ao sair. Tente novamente.");
+        });
+}
 //  Configuração da sidebar
 function setupSidebar() {
     const toggleSidebarButton = document.getElementById('toggle-sidebar');

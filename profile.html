@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfólio de Freelancers - Meu Perfil</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="dashboard">
+    <!-- Barra Lateral -->
+    <div class="sidebar">
+      <button id="toggle-sidebar">≡</button>
+      <button onclick="window.location.href='portfolios.html'">Home</button>
+      <button onclick="window.location.href='kanban.html'">Kanban</button>
+      <button onclick="window.location.href='ListadeClientes.html'">Lista de Clientes</button>
+      <button onclick="window.location.href='cadastroCliente.html'">Cadastro de Cliente</button>
+      <button onclick="window.location.href='cadastroAcordosServicos.html'">Cadastro de Acordos</button>
+      <button onclick="window.location.href='ganhoseDespesas.html'">Ganhos e Despesas</button>
+      <button onclick="window.location.href='criar-contrato.html'">Criar Contrato</button>
+      <button onclick="window.location.href='calendario.html'">Calendario de Tarefas</button>
+      <button onclick="window.location.href='profile.html'">Meu Perfil</button>
+      <button onclick="logout()">Sair</button>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <div class="main-content" id="profileContent">
+      <h1>Meu Perfil</h1>
+
+      <!-- Seção de Foto de Perfil -->
+      <div class="profile-pic-section">
+        <img id="profilePic" src="default-profile.png" alt="Foto de Perfil" class="profile-pic" />
+        <input type="file" id="profilePicInput" accept="image/*" />
+        <h2 id="profileName" class="profile-name">Carregando nome…</h2>
+      </div>
+
+      <!-- Formulário de atualização -->
+      <form id="profileForm">
+        <div>
+          <label for="phone">Telefone (11 dígitos):</label>
+          <input type="text" id="phone" maxlength="11" />
+        </div>
+        <div>
+          <label for="linkedin">LinkedIn:</label>
+          <input type="url" id="linkedin" placeholder="https://linkedin.com/in/seu-perfil" />
+        </div>
+        <div>
+          <label for="facebook">Facebook:</label>
+          <input type="url" id="facebook" placeholder="https://facebook.com/seu-perfil" />
+        </div>
+        <div>
+          <label for="instagram">Instagram:</label>
+          <input type="url" id="instagram" placeholder="https://instagram.com/seu-perfil" />
+        </div>
+        <button type="submit">Salvar Alterações</button>
+      </form>
+
+      <div id="statusMessage"></div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
+  <script src="profile.js"></script>
+</body>
+</html>

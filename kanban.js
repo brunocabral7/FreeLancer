@@ -365,3 +365,33 @@ function columnDragOver(e) {
     kanbanColumns.insertBefore(dragging, after);
   }
 }
+firebase.auth().onAuthStateChanged(user => {
+  if (!user) {
+      alert("Você precisa estar logado para acessar esta página.");
+      window.location.href = "login.html";
+  }
+});
+function logout() {
+  firebase.auth().signOut()
+      .then(() => {
+          window.location.href = "login.html"; // redireciona para a página de login
+      })
+      .catch((error) => {
+          console.error("Erro ao sair:", error);
+          alert("Erro ao sair. Tente novamente.");
+      });
+}
+// Configuração da sidebar
+function setupSidebar() {
+  const toggleSidebarButton = document.getElementById('toggle-sidebar');
+  const sidebar = document.querySelector('.sidebar');
+
+  toggleSidebarButton.addEventListener('click', () => {
+      sidebar.classList.toggle('minimized');
+  });
+}
+
+// Inicialização quando o conteúdo estiver pronto
+document.addEventListener("DOMContentLoaded", () => {
+  setupSidebar();
+});

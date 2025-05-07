@@ -62,6 +62,22 @@ formCadastro.addEventListener("submit", (e) => {
             alert("Houve um erro ao cadastrar o cliente. Tente novamente.");
         });
 });
+firebase.auth().onAuthStateChanged(user => {
+    if (!user) {
+        alert("Você precisa estar logado para acessar esta página.");
+        window.location.href = "login.html";
+    }
+});
+function logout() {
+    firebase.auth().signOut()
+        .then(() => {
+            window.location.href = "login.html"; // redireciona para a página de login
+        })
+        .catch((error) => {
+            console.error("Erro ao sair:", error);
+            alert("Erro ao sair. Tente novamente.");
+        });
+}
 //  Configuração da sidebar
 function setupSidebar() {
     const toggleSidebarButton = document.getElementById('toggle-sidebar');

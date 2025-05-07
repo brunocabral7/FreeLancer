@@ -1,6 +1,4 @@
-/* ========================================= */
 /*           VARIÁVEIS GLOBAIS               */
-/* ========================================= */
 :root {
     /* Fontes e Cores */
     --font-main: 'Poppins', sans-serif;
@@ -26,9 +24,7 @@
     --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* ========================================= */
 /*          RESET & CONFIGURAÇÃO GLOBAL      */
-/* ========================================= */
 *,
 *::before,
 *::after {
@@ -44,19 +40,14 @@ html, body {
     color: var(--color-text);
 }
 
-/* ========================================= */
 /*   CLASSE PARA CENTRALIZAR TELAS COMPLETAS   */
-/* ========================================= */
 .full-page {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
 }
-
-/* ========================================= */
 /*         ESTILOS GERAIS & CONTAINERS       */
-/* ========================================= */
 .container {
     background: var(--bg-container);
     padding: 2rem;
@@ -130,10 +121,7 @@ span {
         transform: translateY(0);
     }
 }
-
-/* ========================================= */
 /*         DASHBOARD COM BARRA LATERAL       */
-/* ========================================= */
 .dashboard {
     display: flex;
     min-height: 100vh;
@@ -210,9 +198,7 @@ span {
     transition: margin-left 0.3s;
 }
 
-/* ========================================= */
 /*        FORMULÁRIOS & TABELAS NO DASHBOARD  */
-/* ========================================= */
 form {
     background: var(--bg-container);
     padding: 20px;
@@ -438,10 +424,7 @@ h3 span {
     background: var(#FFFFFF);  
     color: white;                           
 }
-
-/* ========================================= */
 /*             ESTILOS DOS CARDS             */
-/* ========================================= */
 .card-info {
     display: flex;
     justify-content: space-between;
@@ -458,10 +441,7 @@ h3 span {
     font-style: italic;
     color: #7F8C8D;
 }
-
-/* ========================================= */
 /*             CRIAR CONTRATO                */
-/* ========================================= */
 .criar-contrato {
     width: 80%;
     max-width: 900px;
@@ -545,9 +525,7 @@ h3 span {
     background: var(--color-error);
 }
 
-/* ========================================= */
 /*          CONFIRMAR CONTRATO               */
-/* ========================================= */
 .contract-container {
     background: var(--bg-container);
     padding: 30px;
@@ -623,156 +601,7 @@ h3 span {
     color: var(--color-black);
     margin-bottom: 30px;
 }
-
-.portfolio-section {
-    background: var(--bg-container);
-    padding: 30px;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-medium);
-    max-width: 600px;
-    margin: 0 auto 40px;
-}
-
-.portfolio-section h2 {
-    font-size: 1.8rem;
-    color: var(--color-black);
-    margin-bottom: 15px;
-}
-
-.portfolio-section textarea {
-    border: 1px solid var(--color-input-border);
-    border-radius: var(--border-radius);
-}
-
-.portfolio-section button {
-    background: var(--color-primary);
-    padding: 12px 20px;
-}
-
-.portfolio-section button:hover {
-    background: var(--color-accent);
-}
-
-.other-portfolios {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.other-portfolios h2 {
-    font-size: 1.8rem;
-    color: var(--color-black);
-    margin-bottom: 20px;
-}
-
-#portfolios-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-}
-
-.portfolio-card {
-    background: var(--bg-container);
-    padding: 20px;
-    border-radius: var(--border-radius);
-    width: calc(33% - 20px);
-    box-shadow: var(--shadow-light);
-    transition: transform 0.3s ease;
-}
-
-.portfolio-card:hover {
-    transform: translateY(-5px);
-}
-
-.portfolio-card h3 {
-    font-size: 1.2rem;
-    margin-top: 10px;
-    color: var(--color-black);
-}
-
-.portfolio-card p {
-    font-size: 0.95rem;
-    color: #7F8C8D;
-    margin-bottom: 15px;
-}
-
-.portfolio-item a {
-    text-decoration: none;
-    background: var(--color-primary);
-    color: var(--color-white);
-    padding: 10px 20px;
-    border-radius: var(--border-radius);
-    display: inline-block;
-    transition: background 0.3s;
-}
-
-.portfolio-item a:hover {
-    background: var(--color-accent);
-}
-
-label[for="portfolio"] {
-    color: var(--color-primary);
-    font-size: 1rem;
-    font-weight: 600;
-}
-
-/* ========================================= */
-/*           ESTILOS DO MODAL                */
-/* ========================================= */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background: var(--color-modal-overlay);
-}
-
-.modal-content {
-    background: var(--bg-container);
-    margin: 10% auto;
-    padding: 30px;
-    border-radius: var(--border-radius);
-    width: 90%;
-    max-width: 600px;
-    box-shadow: var(--shadow-medium);
-    animation: fadeIn 0.4s ease;
-    position: relative;
-}
-
-.close {
-    color: var(--color-modal-close);
-    font-size: 1.8rem;
-    font-weight: bold;
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    cursor: pointer;
-}
-
-.close:hover,
-.close:focus {
-    color: var(--color-modal-close-hover);
-}
-
-.modal-content p {
-    font-size: 1rem;
-    margin: 12px 0;
-    color: var(--color-text);
-}
-
-.modal-content h3 {
-    font-size: 1.5rem;
-    color: var(--color-primary);
-    margin-bottom: 20px;
-}
-
-/* ========================================= */
 /*             RESPONSIVIDADE                */
-/* ========================================= */
 @media (max-width: 768px) {
     .dashboard {
         flex-direction: column;
@@ -800,34 +629,25 @@ label[for="portfolio"] {
     }
 }
 /* ======= Ganhos e Despesas ======= */
-
 /* Diminuir padding-top dos TDs em Ganhos e Despesas */
 #lista-transacoes td {
     padding-top: 0px;  /* ajuste este valor até ficar do seu gosto */
-    /* mantém o padding lateral e inferior */
     padding-right: 15px;
     padding-bottom: 3px;
     padding-left: 15px;
   }
-  /* ========================= */
 /*  Ajustes Ganhos & Despesas */
-/* ========================= */
 /* === Correção de espaçamento no Ganhos & Despesas === */
 #lista-transacoes button {
     margin-top: 3px;
     margin-top: 3px;  /* remove a margem extra acima dos botões */
   }
   
-  /* (Opcional) Se ainda quiser compactar ainda mais, reduza o line-height das células) */
   #lista-transacoes td {
     line-height: 1.1;
   }
 
-  /*
-
-  /* ========================================= */
 /*   MELHORIAS VISUAIS PARA DRAG & DROP      */
-/* ========================================= */
 
 /* Destaque suave ao passar o card sobre a lista */
 .kanban-list.drag-over {
@@ -878,4 +698,501 @@ label[for="portfolio"] {
   padding: 6px;
   font-size: 14px;
   margin-right: 10px;
+}
+
+/* ========================================= */
+/*            ESTILOS DO PROFILE.html        */
+/* ========================================= */
+
+/* Seção de Foto de Perfil */
+.profile-pic-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .profile-pic {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: var(--shadow-medium);
+    margin-bottom: 1rem;
+    background: var(--bg-input);
+  }
+  
+
+  
+  .profile-pic-section label[for="profilePicInput"] {
+    display: inline-block;
+    padding: 8px 16px;
+    background: var(--color-secondary);
+    color: var(--color-white);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.3s ease;
+  }
+  
+  .profile-pic-section label[for="profilePicInput"]:hover {
+    background: var(--color-button-kanban-hover);
+  }
+  
+  /* Labels e campos do formulário */
+  #profileForm div {
+    margin-bottom: 1rem;
+  }
+  
+  #profileForm div label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+    color: var(--color-black);
+    font-size: 0.95rem;
+  }
+  
+  /* Botão de salvar personalizado (herda estilos gerais) */
+  #profileForm button {
+    max-width: 200px;
+    margin: 1.5rem auto 0;
+  }
+  
+  /* Mensagem de status após salvar */
+  #statusMessage {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    padding: 12px;
+    border-radius: var(--border-radius);
+    display: none; /* será exibido via JS quando necessário */
+  }
+  
+  /* Sucesso */
+  #statusMessage.success {
+    display: block;
+    background: var(--color-secondary);
+    color: var(--color-white);
+    box-shadow: var(--shadow-light);
+  }
+  
+  /* Erro */
+  #statusMessage.error {
+    display: block;
+    background: var(--color-error, #E74C3C);
+    color: var(--color-white);
+    box-shadow: var(--shadow-light);
+  }
+  
+  /* Responsividade (abaixa largura do profile-pic em telas menores) */
+  @media (max-width: 480px) {
+    .profile-pic {
+      width: 100px;
+      height: 100px;
+    }
+  
+    .profile-pic-section label[for="profilePicInput"] {
+      padding: 6px 12px;
+      font-size: 0.85rem;
+    }
+  }
+  #profileContent > h1 {
+    text-align: center;
+    margin-bottom: 2rem;   /* ajuste o espaçamento conforme desejar */
+    color: var(--color-primary);
+  }
+
+  /* Input de arquivo estilizado e centralizado */
+#profilePicInput {
+    
+     width: 300px;  /* Define a largura */
+    height: 40px;  /* Define a altura */
+    display: block;  /* Torna o input um bloco para centralização */
+    margin: 0 auto;  /* Centraliza o input horizontalmente */                                 
+    background: var(--color-primary);  /* cor de fundo */
+    color: var(--color-white);           /* texto branco */
+    border: none;                        /* remove borda padrão */
+    border-radius: var(--border-radius); /* cantos arredondados */
+    font-size: 0.9rem;                   /* tamanho de fonte */
+    cursor: pointer;                     /* cursor de mãozinha */
+    transition: background 0.3s ease;    /* transição suave */
+  }
+  
+  /* Efeito hover */
+  #profilePicInput:hover {
+    background: var(--color-button-kanban-hover);
+  }
+  /* Nome de usuário abaixo da foto */
+.profile-pic-section .profile-name {
+    text-align: center;
+    margin: 20px auto 0rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-black);      
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+.portfolio-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.portfolio-card {
+  border: 1px solid #ccc;
+  padding: 1em;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0.5em;
+}
+
+.user-photo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.user-name {
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.portfolio-image {
+    width: 100%;
+    max-width: 500px;
+    height: 300px;
+    border-radius: 12px;
+    margin-top: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+  }
+  
+#profileName {
+    font-size: 24px;
+    font-weight: 600;
+  }
+  
+  /* Informações de contato */
+  #profileInfo p {
+    margin: 10px 0;
+    font-size: 16px;
+  }
+  
+  #profileInfo strong {
+    color: #34495e;
+  }
+  
+  /* Botão voltar */
+  button[onclick*="window.history.back"] {
+    display: inline-block;    /* evita largura total */
+    width: auto;              /* sobrescreve width:100% herdado */
+    padding: 6px 12px;        /* menos espaçamento interno */
+    font-size: 14px;          /* fonte um pouco menor */
+    line-height: 1.2;         /* melhor alinhamento vertical */
+    max-width: 120px;         /* opcional: limita largura máxima */
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button[onclick*="window.history.back"]:hover {
+    background-color: #1a252f;
+  }
+  #profileInfo span, 
+#profileInfo a {
+  color: #2c3e50;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+#profileInfo a:hover {
+  text-decoration: underline;
+  color: #1a252f;
+}
+h1 {
+    text-align: center;
+    color: #2c3e50; /* Cor escura para combinar com o resto */
+  }
+  .portfolio-card p {
+    white-space: pre-line;
+  }
+/* Estilo do calendário */
+
+  
+  .fc {
+    width: 100% !important;
+  }
+  
+  .main-content {
+    overflow-x: auto;
+    padding: 20px;
+  }
+  
+  .fc-scrollgrid {
+    min-width: 600px;
+  }
+  
+  /* Compactar células de dias */
+  .fc-daygrid-day-frame {
+    padding: 2px; /* menos espaço interno */
+    min-height: 10px; /* altura menor */
+  }
+  
+  /* Estilos personalizados para o FullCalendar */
+  .fc-toolbar {
+    background-color: #34495e;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .fc-toolbar-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .fc-button-group {
+    margin: 0 5px;
+  }
+  
+  .fc-dayGridMonth-button,
+  .fc-dayGridWeek-button,
+  .fc-dayGridDay-button {
+    background-color: #1abc9c;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    font-size: 13px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .fc-dayGridMonth-button:hover,
+  .fc-dayGridWeek-button:hover,
+  .fc-dayGridDay-button:hover {
+    background-color: #16a085;
+  }
+  
+  .fc-day {
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .fc-day:hover {
+    background-color: #ecf0f1;
+  }
+  
+  .fc-event {
+    background-color: #3498db;
+    color: white;
+    border-radius: 5px;
+    padding: 2px 4px;
+    font-size: 12px;
+    margin: 1px 0;
+  }
+  
+  .fc-event:hover {
+    background-color: #2980b9;
+  }
+  .portfolios-section {
+
+    gap: 20px; /* Espaço entre os portfólios */
+
+  }
+
+  .portfolio-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .portfolio-card p {
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+  
+  .portfolio-card img {
+    border-radius: 8px;
+  }
+  .profile-rating {
+    margin-top: 20px;
+  }
+  
+  #ratingStars {
+    font-size: 1.5rem;
+    color: #ddd; /* Cor das estrelas vazias */
+  }
+  
+  /* Container geral das avaliações */
+#ratingsSection {
+  background: #fafafa;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Título e média */
+#ratingsSection h2 {
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  color: #333;
+}
+#averageRating {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffb400;  /* tom dourado para estrelas */
+  margin-bottom: 1rem;
+}
+
+/* Lista de comentários */
+.comment {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+  transition: background 0.2s;
+}
+.comment:hover {
+  background: #f3f3f3;
+}
+.comment strong {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: #555;
+}
+.comment br + * {
+  margin-top: 0.5rem;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+/* Formulário de avaliação */
+#ratingForm {
+  border-top: 1px solid #e0e0e0;
+  padding-top: 1rem;
+}
+#ratingForm label {
+  font-size: 0.95rem;
+  color: #444;
+}
+#starInputs {
+  display: inline-block;
+  margin: 0.5rem 0 1rem;
+}
+#starInputs label {
+  cursor: pointer;
+  font-size: 1.25rem;
+  color: #ccc;
+  margin-right: 0.25rem;
+  transition: color 0.2s;
+}
+#starInputs input {
+  display: none;
+}
+/* Estrelas selecionadas */
+#starInputs label:has(input:checked),
+#starInputs label:hover,
+#starInputs label:hover ~ label {
+  color: #ffb400;
+}
+
+/* Textarea */
+#ratingForm textarea {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0.5rem;
+  font-family: inherit;
+  resize: vertical;
+  margin-bottom: 0.75rem;
+}
+
+/* Botão de envio */
+#ratingForm button[type="submit"] {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+#ratingForm button[type="submit"]:hover {
+  background: #0069d9;
+}
+#starInputs label {
+  color: #ccc;
+}
+#starInputs label:has(input:checked) ~ label {
+  /* mantém cinza as estrelas depois da marcada */
+  color: #ccc;
+}
+/*--------*/
+/* ENTRADA */
+/* ===== Página de Entrada ===== */
+/* ===== Seção de Boas-Vindas ===== */
+.welcome-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-body);
+  padding: 4rem 1rem;
+}
+
+.welcome-content {
+  max-width: 650px;
+  background: var(--bg-container);
+  padding: 3rem 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-medium);
+  text-align: center;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.welcome-title {
+  font-size: 2.75rem;
+  color: var(--color-primary);
+  margin-bottom: 0.75rem;
+}
+
+.welcome-subtitle {
+  font-size: 1.2rem;
+  color: var(--color-text);
+  margin-bottom: 1.75rem;
+  line-height: 1.5;
+}
+
+.welcome-btn {
+  display: inline-block;
+  padding: 14px 30px;
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-size: 1rem;
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.welcome-btn:hover {
+  background: var(--color-accent);
 }
